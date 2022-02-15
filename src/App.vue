@@ -1,15 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>Calculator</h1>
+  <div>
+    <router-view></router-view>
+
+    <router-link
+        class="router-link"
+        :to="{name: 'Calculator'}"
+    >calc</router-link>
+
+    <router-link
+        class="router-link"
+        :to="{name: 'ContactForm'}"
+    >forms</router-link>
+  </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import Calculator from "./components/Calculator";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    //Calculator
   }
 }
 </script>
@@ -22,5 +35,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.router-link{
+  text-decoration: none;
+  padding: 10px;
+}
+.router-link:hover {
+  font-size: 18px;
 }
 </style>
