@@ -1,5 +1,5 @@
 <template>
-<!--  <div class="form-container">-->
+<div>
     <form
         class="form-container"
         @submit.prevent="sendForm"
@@ -45,12 +45,15 @@
       <!--    <label for="submit"></label> internet says '..does not need a label associated with it'-->
       <p v-if="this.sending">Sending...</p>
       <p v-if="this.sent">Sent!</p>
-    </form>
-<!--  </div>-->
 
+    </form>
+ <div> {{$store.state.contactForms}}</div><!-- To see that store is actually updated -->
+</div>
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
+
 export default {
   name: "ContactForms",
   data() {
@@ -58,17 +61,19 @@ export default {
       contactInfo: {
         name: '',
         email: '',
-        message: ''
+        message: '',
+        id: null
       },
       sending: false,
       sent: false
     }
   },
   methods: {
-
     sendForm() {
+      this.contactInfo.id = uuidv4()
       this.sending = true
       setTimeout(() => {
+        this.$store.dispatch('addForm', this.contactInfo)
         this.sending = false
         this.sent = true
         setTimeout(() => this.sent = false, 2000)
