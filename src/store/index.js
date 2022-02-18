@@ -2,6 +2,12 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
+        contactInfo: {
+            name: '',
+            email: '',
+            message: '',
+            id: null
+        },
         contactForms: []
     },
     mutations: { //to use mutations, you commit

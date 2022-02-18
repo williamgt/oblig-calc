@@ -76,7 +76,7 @@ export default {
         this.$store.dispatch('addForm', this.contactInfo)
         this.sending = false
         this.sent = true
-        setTimeout(() => this.sent = false, 2000)
+        setTimeout(() => this.sent = false, 2000) //Nested timeouts, maybe lead to some problems
       }, 2000)
     }
   },
