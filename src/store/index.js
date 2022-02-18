@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
-        contactInfo: {
+        contactInfo: { //TODO connect this to the things written in the contact form, the values have to persist
             name: '',
             email: '',
             message: '',
