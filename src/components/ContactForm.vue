@@ -47,7 +47,7 @@
       <p v-if="this.sent">Sent!</p>
 
     </form>
- <div> {{$store.state.contactForms}}</div><!-- To see that store is actually updated -->
+  <!--<div> {{$store.state.contactForms}}</div> To see that store is actually updated -->
 </div>
 </template>
 
