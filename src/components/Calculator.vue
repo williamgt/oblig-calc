@@ -34,6 +34,10 @@
 </template>
 
 <script>
+//import calculate /*{ calculate2, calculate3*/} from "../api/calc-api";
+//import axios from "axios";
+import calculate from "../api/calc-api";
+
 export default {
   name: 'Calculator',
   data(){
@@ -59,37 +63,41 @@ export default {
       }
     },
 
-    special(element){
-      if(element === '+' || element === '-' || element === '*' || element === '/' || element === '.'){
+    async special(element) {
+      if (element === '+' || element === '-' || element === '*' || element === '/' || element === '.') {
         let lastChar = this.display.slice(-1);
-        if(lastChar === '.'){
-          this.errorMessage = 'Formatting error: two commas in a row are not allowed'
+        if (lastChar === '.') {
+          alert('Formatting error: two commas in a row are not allowed')
+          //this.errorMessage = 'Formatting error: two commas in a row are not allowed'
           return
         }
-        if((element === '/' || element === '*') && (lastChar === '/' || lastChar === '*')){
-          this.errorMessage = 'Formatting error: cannot have * or / come after each other'
+        if ((element === '/' || element === '*') && (lastChar === '/' || lastChar === '*')) {
+          alert('Formatting error: cannot have * or / come after each other')
+          //this.errorMessage = 'Formatting error: cannot have * or / come after each other'
           return
         }
         this.display = this.display.concat(element)
       }
-      if(element === 'C'){
+      if (element === 'C') {
         this.display = ''
-      }
-      else if(element === 'DEL'){
+      } else if (element === 'DEL') {
         this.display = this.display.slice(0, -1)
-      }
-      else if(element === 'ANS'){
+      } else if (element === 'ANS') {
         this.display = this.display.concat(this.ansBuffer)
-      }
-      else if(element === '='){
+      } else if (element === '=') {
         let ans
-        try{
-          ans = eval(this.display)
-          let logEntry = {exp: this.display, ans:ans}
+        await calculate(this.display).then(response => {ans = response.data.result})
+        let reg = /^-?\d+\.?\d*$/
+        if(!reg.test(ans)){
+          alert(ans)
+          return
+        }
+        try {
+          let logEntry = {exp: this.display, ans: ans}
           this.ansBuffer = String(ans)
           this.display = String(ans)
           this.log.push(logEntry)
-        }catch (error){
+        } catch (error) {
           this.display = 'ERROR'
         }
       }
