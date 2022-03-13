@@ -13,7 +13,7 @@
             v-model="name"
             id="name"
         />
-        <p v-if="!validName">Name field cannot be empty</p>
+        <p v-if="!validName" class="alert-msg">Name field cannot be empty</p>
       </fieldset>
 
       <!--Email input-->
@@ -23,7 +23,7 @@
             v-model="email"
             id="email"
         />
-        <p v-if="!validEmail">Email is invalid</p>
+        <p v-if="!validEmail" class="alert-msg">Email is invalid</p>
       </fieldset>
 
       <!--Message input-->
@@ -33,7 +33,7 @@
             v-model="message"
             id="message"
         ></textarea>
-        <p v-if="!validMessage">You must write a message</p>
+        <p v-if="!validMessage" class="alert-msg">You must write a message</p>
       </fieldset>
 
       <!--Button-->
@@ -124,6 +124,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center
+}
+
+fieldset{
+  border: none;
+}
+
+.alert-msg{
+  color: red;
 }
 
 </style>

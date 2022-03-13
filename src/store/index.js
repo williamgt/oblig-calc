@@ -2,13 +2,23 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
+        loggedIn: false,
         contactInfo: { //TODO connect this to the things written in the contact form, the values have to persist
             name: '',
             email: '',
             message: '',
             id: null
         },
-        contactForms: []
+        contactForms: [],
+        user: {
+            name: "",
+            address: "",
+            username: "",
+            password: "",
+            email: "",
+            phone: "",
+            id: "",
+        },
     },
     mutations: { //to use mutations, you commit
         ADD_CONTACT_FORM(state, form){
@@ -28,7 +38,10 @@ export default createStore({
         },
         UPDATE_ID(state, id){
             state.contactInfo.id = id
-        }
+        },
+        SET_USER(state, user){
+            state.user = user;
+        },
     },
     actions: { //to use action, you dispatch
         addForm({commit}){
@@ -39,6 +52,9 @@ export default createStore({
             commit("UPDATE_EMAIL", '')
             commit('UPDATE_MESSAGE', '')
             commit('UPDATE_ID', null)
-        }
+        },
+        registerUser({ commit }, user) {
+            commit("SET_USER", user);
+        },
     }
 })
