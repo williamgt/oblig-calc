@@ -1,5 +1,6 @@
 <template>
   <h1>Calculator</h1>
+  <p v-if="this.$store.state.loggedIn">Hello {{this.$store.state.user.username}}!</p>
   <div>
     <router-view></router-view>
 
@@ -12,6 +13,16 @@
         class="router-link"
         :to="{name: 'ContactForm'}"
     >forms</router-link>
+
+    <router-link
+      class="router-link"
+      :to="{name: 'Login'}"
+    >login</router-link>
+
+    <router-link
+        class="router-link"
+        :to="{name: 'History'}"
+    >history</router-link>
   </div>
 
 </template>

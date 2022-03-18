@@ -23,7 +23,7 @@
             class="log-element"
             v-for="l in log.slice().reverse()" :key="l.id"
         >
-          {{ l.exp }} = {{ l.ans }}
+          {{ l.expression }} = {{ l.result }}
         </li>
       </ul>
     </div>
@@ -34,9 +34,7 @@
 </template>
 
 <script>
-//import calculate /*{ calculate2, calculate3*/} from "../api/calc-api";
-//import axios from "axios";
-import calculate from "../api/calc-api";
+import {addCalculationNoUser, addCalculationWithUser, calculate} from "../api/calc-api";
 
 export default {
   name: 'Calculator',
@@ -93,11 +91,17 @@ export default {
           return
         }
         try {
-          let logEntry = {exp: this.display, ans: ans}
+          let logEntry = {expression: this.display, result: ans}
           this.ansBuffer = String(ans)
           this.display = String(ans)
           this.log.push(logEntry)
+          if(this.$store.state.loggedIn){
+            await addCalculationWithUser(this.$store.state.user, logEntry)
+          }else{
+            await addCalculationNoUser(logEntry)
+          }
         } catch (error) {
+          console.log(error)
           this.display = 'ERROR'
         }
       }

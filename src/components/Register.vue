@@ -4,7 +4,7 @@
     <form @submit.prevent="sendForm">
       <InputReusable
           label-name="Full name"
-          v-model="user.name"
+          v-model="user.fullName"
       ></InputReusable>
 
       <InputReusable
@@ -39,7 +39,8 @@
 
 <script>
 import InputReusable from "../reusables/InputReusable";
-import { sendForm2 } from "../utils/api";
+//import { sendForm2 } from "../utils/api";
+import {register} from "../api/login-api";
 
 export default {
   name: "Register",
@@ -47,25 +48,29 @@ export default {
   data() {
     return {
       user: {
-        name: "",
+        fullName: "",
+        email: "",
         address: "",
         username: "",
         password: "",
-        email: "",
         phone: "",
-        id: "",
       },
     };
   },
   methods: {
     sendForm() {
-      this.user.id = 1;
-      sendForm2(this.user); //TODO implement
-      this.$store.dispatch("registerUser", this.user);
-      this.$router.push("/home");
+      console.log('Sending form....')
+      register(this.user)
+      this.$store.dispatch('setUser', this.user)
+      this.$store.dispatch('setLoginStatus', true)
+      //this.$router.push("/home");
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+fieldset{
+  border: none;
+}
+</style>

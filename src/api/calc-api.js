@@ -15,3 +15,22 @@ const apiClient = axios.create({
 export function calculate(expression) {
     return apiClient.get("/calculate/" + expression);
 }
+
+export function findCalculationsByEmail(email) {
+    return apiClient.get("/calculations-by-email/"+email);
+}
+
+export function addCalculationWithUser(user, calculation){
+    let userAndCalculation = [user, calculation]
+    apiClient.post("/calculations/add-with-user", userAndCalculation)
+        .then((response) => {
+            console.log(response)
+        })
+}
+
+export function addCalculationNoUser(calculation){
+    apiClient.post("/calculations/add-no-user", calculation)
+        .then(response => {
+            console.log(response)
+        })
+}
