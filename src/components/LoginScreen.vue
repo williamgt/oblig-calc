@@ -41,10 +41,11 @@
       <button v-on:click="logOut">Log out</button>
     </div>
 
+  <button @click="gettoken">token</button>
 </template>
 
 <script>
-import {login} from "../api/login-api";
+import {login, getToken} from "../api/login-api";
 
 export default {
   name: "LoginComponent",
@@ -59,6 +60,19 @@ export default {
     };
   },
   methods: {
+    gettoken() {
+      getToken()
+      .then(response => {
+        console.log(response)
+        console.log('THIS IS YOUR FUCKING TOKEN: ', response.data);
+        this.$store.state.auth.token = response.data;
+        localStorage.setItem('token', response.data);
+        console.log('SAVED AUTH TOKEN: ', this.$store.state.auth.token)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
     async handleClickSignin_2() {
       console.log('Signing in...')
       let user;

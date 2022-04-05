@@ -19,7 +19,10 @@ export default createStore({
             password: "",
             phone: "",
         },
-        calculations: []
+        calculations: [],
+        auth: {
+            token: ""
+        }
     },
     mutations: { //to use mutations, you commit
         ADD_CONTACT_FORM(state, form){
